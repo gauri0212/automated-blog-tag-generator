@@ -3,13 +3,21 @@ import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-nltk.download('punkt')
-nltk.download('stopwords')
+# ✅ Safe download (only if missing)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
 
 stop_words = set(stopwords.words('english'))
 
 def preprocess(text):
-    text = text.lower()
+    text = str(text).lower()
     tokens = word_tokenize(text)
 
     tokens = [
